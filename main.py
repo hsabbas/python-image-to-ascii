@@ -6,11 +6,16 @@ def convert():
     filepath = sys.argv[1]
     image = io.imread(filepath, as_gray=True)
     height, width = image.shape
+    resize_height_factor = 1
+    resize_width_factor = 1
+    if height > 1000:
+        resize_height_factor += height // 1000
+    if width > 1000:
+        resize_width_factor += width // 1000
     result = open("output.txt", "w")
-    for row in range(0, height, 2):
-        for col in range(width):
-            average_pixel_value = (image[row, col] + image[row + 1, col]) / 2
-            result.write(get_character(average_pixel_value))
+    for row in range(0, height, 3 * resize_height_factor):
+        for col in range(0, width, 1 * resize_width_factor):
+            result.write(get_character(image[row, col]))
         result.write("\n")
 
 
