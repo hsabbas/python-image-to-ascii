@@ -9,8 +9,7 @@ def convert():
     result = open("output.txt", "w")
     for row in range(0, height, 2):
         for col in range(width):
-            average_pixel_value = (image[row, col] + image[row + 1, col]) / 2
-            result.write(get_character(average_pixel_value))
+            result.write(get_character(image[row, col]))
         result.write("\n")
 
 
