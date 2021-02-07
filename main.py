@@ -43,4 +43,17 @@ def get_character(pixel):
 
 
 if __name__ == '__main__':
-    convert()
+    filepath = sys.argv[1]
+    image = io.imread(filepath, as_gray=True)
+    height, width = image.shape
+    resize_factor = 1
+    resize_width_factor = 1
+    if height > 1000 and height > width:
+        resize_factor += height // 1000
+    if width > 1000 and width > height:
+        resize_factor += width // 1000
+    result = open("output.txt", "w")
+    for row in range(0, height, 3 * resize_factor):
+        for col in range(0, width, 1 * resize_factor):
+            result.write(get_character(image[row, col]))
+        result.write("\n")
